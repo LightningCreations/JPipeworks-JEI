@@ -19,6 +19,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import com.lightning.jpipeworks.Engine;
 import com.lightning.jpipeworks.resources.LoadableResource;
 
 import github.lightningcreations.lcjei.resources.Resource;
@@ -26,7 +27,14 @@ import github.lightningcreations.lcjei.resources.ResourceSet;
 
 public class PipeworksResourceController {
 	
-	private static ResourceSet<String> resourceSet;
+	private ResourceSet<String> resourceSet;
+	private static final ResourceSet<String> defaultSet;
+	private Engine e;
+	
+	PipeworksResourceController(Engine e){
+		this.e = e;
+		this.resourceSet = defaultSet;
+	}
 	
 	private static final class DefaultPipeworksResource implements Resource<String>{
 		private Path target;
@@ -123,12 +131,12 @@ public class PipeworksResourceController {
 	}
 	
 	static {
-		setPipeworksResourceSet(new DefaultPipeworksResourceSet());
+		LoadableResource.setLookupFunction(getPipeworksLookupFn(defaultSet = new DefaultPipeworksResourceSet()));
 	}
 	
-	public static void setPipeworksResourceSet(ResourceSet<String> set) {
+	public void setPipeworksResourceSet(ResourceSet<String> set) {
 		resourceSet = set;
-		LoadableResource.setLookupFunction(getPipeworksLookupFn(set));
+		e.setEngineResourceLookupFunction(getPipeworksLookupFn(set));
 	}
 	
 	public static void init() {} //Call Static Initializer
@@ -138,9 +146,7 @@ public class PipeworksResourceController {
 		return s->res.getResource(s).map(str->str::getReadStream);
 	}
 	
-	public static ResourceSet<String> getPipeworksResourceSet(){
+	public ResourceSet<String> getPipeworksResourceSet(){
 		return resourceSet;
 	}
-	
-
 }

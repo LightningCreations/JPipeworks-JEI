@@ -1,6 +1,7 @@
 package com.lightning.jpipeworks.lcjei;
 
 import java.awt.Container;
+import java.util.Optional;
 
 import com.lightning.jpipeworks.Engine;
 import com.lightning.jpipeworks.Game;
@@ -16,6 +17,7 @@ public class PipeworksEngineInterface implements IEngineInterface<Game> {
 	private Engine e;
 	private Game g;
 	private Container c;
+	private Optional<PipeworksResourceController> res;
 	/**
 	 * Creates a new PipeworksEngineInterface in an uninitialized state bound to g
 	 * @param g the game to bind
@@ -24,6 +26,16 @@ public class PipeworksEngineInterface implements IEngineInterface<Game> {
 	public PipeworksEngineInterface(Game g) {
 		this.g = g;
 		this.e = new Engine(g);
+	}
+	
+	public PipeworksResourceController getResourceController() {
+		if(res.isPresent())
+			return res.get();
+		else {
+			res = Optional.of(new PipeworksResourceController(e));
+			return res.get();
+		}
+			
 	}
 	
 	/**
