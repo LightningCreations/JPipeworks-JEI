@@ -78,7 +78,7 @@ public class PipeworksEngineInterface implements IEngineInterface<Game> {
 	@Override
 	public Container getCurrentDrawContainer() {
 		// TODO Auto-generated method stub
-		return null;
+		return c;
 	}
 
 	@Override

@@ -39,7 +39,7 @@ public class PipeworksJEIServiceProvider implements JEIServiceProvider<Game> {
 		return getActiveEngines().findAny();
 	}
 
-	@Override
+	
 	public Stream<IEngineInterface<Game>> getActiveEngines() {
 		return Engine.getRunningPipeworksEngines().map(PipeworksEngineInterface::new);
 	}
