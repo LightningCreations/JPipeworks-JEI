@@ -11,7 +11,7 @@ apply plugin: 'eclipse'
 
 group = 'com.lightning'
 archivesBaseName = 'jpipeworks-jei'
-version = '1.1'
+version = '1.2'
 
 repositories {
     // Use jcenter for resolving your dependencies.
@@ -27,6 +27,6 @@ repositories {
 
 dependencies {
     compile 'github.lightningcreations:lcjei:[1.0,2.0)'
-    compile 'com.lightning:jpipeworks-engine:1.0'
+    compile 'com.lightning:jpipeworks-engine:1.1'
 }
 

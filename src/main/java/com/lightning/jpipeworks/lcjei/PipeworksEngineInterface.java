@@ -16,7 +16,7 @@ import github.lightningcreations.lcjei.IEngineInterface;
 public class PipeworksEngineInterface implements IEngineInterface<Game> {
 	private Engine e;
 	private Game g;
-	private Container c;
+
 	private Optional<PipeworksResourceController> res;
 	/**
 	 * Creates a new PipeworksEngineInterface in an uninitialized state bound to g
@@ -53,49 +53,51 @@ public class PipeworksEngineInterface implements IEngineInterface<Game> {
 
 	@Override
 	public boolean initialize(Container c) throws IllegalStateException {
-		//this.c = c;
-		initialize();
-		return false;
+		if(c == null){
+			initialize();
+			return false;
+		}
+		getDirectEngine().init(c);
+		return true;
 	}
 
 	@Override
 	public void initialize() throws IllegalStateException {
-		// TODO Auto-generated method stub
-		
+		getDirectEngine().init();
 	}
 
 	@Override
 	public void destroy() throws IllegalStateException {
-		e.isClosing = true;//Pretty Easy to destroy a Pipeworks Engine.
+		try {
+			getDirectEngine().closeJoin();
+		} catch (InterruptedException ex) {
+
+		}
 	}
 
 	@Override
 	public void run() throws IllegalStateException {
-		// TODO Auto-generated method stub
-		
+		getDirectEngine().start();
 	}
 
 	@Override
 	public Container getCurrentDrawContainer() {
-		// TODO Auto-generated method stub
-		return c;
+		return getDirectEngine().getContainer();
 	}
 
 	@Override
 	public Game getGameObject() {
-		// TODO Auto-generated method stub
 		return g;
 	}
 
 	@Override
 	public void suspend() throws IllegalStateException {
-		
+		getDirectEngine().suspend();
 	}
 
 	@Override
 	public void resume() throws IllegalStateException {
-		// TODO Auto-generated method stub
-		
+		getDirectEngine().resume();
 	}
 
 }
